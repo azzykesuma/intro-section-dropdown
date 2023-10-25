@@ -119,6 +119,14 @@ export default function Home() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+  // on first render, run a function to check the size of the screen,and set ismobile accordingly
+  useEffect(() => {
+    if(windowWidth < 768) {
+      setIsMobile(true)
+    } else {
+      setIsMobile(false)
+    }
+  }, [windowWidth])
   return (
     <div>
       <Head>
