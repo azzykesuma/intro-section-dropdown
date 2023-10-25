@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // images
 import hamburgerIcon from '../assets/icon-menu.svg'
 import logoImage from '../assets/logo.svg'
@@ -10,12 +10,26 @@ import arrowDown from '../assets/icon-arrow-down.svg';
 import {navs} from '../pages/index'
 function DesktopHeader() {
     const [navOpenState, setNavOpenState] = useState({});
+
+    useEffect(() => {
+        const defaultNavOpenState = {};
+        navs.forEach((nav) => {
+            defaultNavOpenState[nav.mainNavTitle] = false;
+        });
+        setNavOpenState(defaultNavOpenState);
+    }, []);
     const handleMouseEnter = (title) => {
-        setNavOpenState((prevState) => ({
-            ...prevState,
-            [title]: !prevState[title],
-        }));
-    }
+        setNavOpenState((prevState) => {
+            const newState = {};
+            Object.keys(prevState).forEach((key) => {
+                newState[key] = key === title ? !prevState[key] : false;
+            });
+            return {
+                ...prevState,
+                ...newState,
+            };
+        });
+    };
     const handleMouseLeave = (title) => {
         setNavOpenState((prevState) => ({
             ...prevState,
@@ -34,15 +48,17 @@ function DesktopHeader() {
                             <a 
                                 className='flex gap-2 items-center text-base text-medium-gray no-underline hover:text-almost-black' href='#'
                                 onMouseEnter={() => {handleMouseEnter(nav.mainNavTitle)}}
-                                onMouseLeave={() => {handleMouseLeave(nav.mainNavTitle)}}
                                 >{nav.mainNavTitle} 
-                                <span className='pt-1'><Image src={arrowDown} alt='icon-arrow-down'/></span></a> 
-                            : <a className=' text-base text-medium-gray no-underline hover:text-almost-black' href='#'>{nav.mainNavTitle}</a>
-                            // sub nav container
+                                <span className='pt-1'><Image src={navOpenState[nav.mainNavTitle] ? arrowUp : arrowDown } alt='icon-arrow-down'/></span></a> 
+                            : <a onMouseEnter={() => {handleMouseEnter(nav.mainNavTitle)}} className=' text-base text-medium-gray no-underline hover:text-almost-black' href='#'>{nav.mainNavTitle}</a>
                         }
+                        {/* sub nav container */}
                         {navOpenState[nav.mainNavTitle] && nav.childNav ? (
-                            <div className='absolute bg-white w-52 translate-y-6'>
-                                <ul className='pt-3'>
+                            <div 
+                                className='absolute bg-white w-40 translate-y-4'
+                                onMouseLeave={() => {handleMouseLeave(nav.mainNavTitle)}}
+                                >
+                                <ul className='py-3 px-3 nav-box mb-0 rounded-lg'>
                                     {nav.childNav.map((child) => {
                                         return (
                                             <li className='flex items-center gap-3 mb-2' key={child.title}>

@@ -127,69 +127,69 @@ export default function Home() {
         <link rel="icon" href="/favicon-32x32.png" />
       </Head>
       {!isMobile ? <DesktopHeader />: <MobileHeader onClick={handleShow} />}
-      <main
+      <main className='md:flex md:flex-row-reverse md:justify-evenly md:items-center lg:items-stretch gap-5'
       >
         {isMobile ? 
         <Image src={MobileImage}  alt='mobile-image' /> 
-        : <Image src={desktopImage} alt='desktop-image' /> }
-        <section className='p-3 flex flex-col'>
-          <h1 className='font-bold text-4xl text-center my-2'>Make remote work</h1>
-          <p className='text-sm text-center text-medium-gray leading-5'>
+        : <Image src={desktopImage} alt='desktop-image' className='max-w-md' /> }
+        <section className='overflow-hidden sm:p-3 flex flex-col lg:w-2/5 lg:items-start lg:pt-14'>
+          <h1 className='font-bold sm:text-4xl sm:text-center my-2 lg:text-7xl lg:text-left'>Make remote work</h1>
+          <p className='text-sm sm:text-center md:text-center text-medium-gray leading-5 lg:text-left lg:text-xl lg:mt-7 lg:max-w-md'>
           Get your team in sync, no matter your location. Streamline processes,create team rituals, and watch productivity soar.
           </p>
-          <button className='bg-almost-black text-white p-2 px-5 mx-auto my-3 rounded-xl'>Learn More</button>
-          <div className='flex items-center justify-around gap-3 mt-5'>
+          <button className='transition-all border-2 bg-almost-black text-almost-white p-2 px-5 sm:mx-auto md:mx-auto sm:my-3 md:my-3  rounded-xl lg:md-auto lg:ml-0 md:mt-12 hover:bg-almost-white hover:text-almost-black hover:border-almost-black hover:border-2 hover:font-bold'>Learn More</button>
+          <div className='flex items-center justify-around gap-3 sm:mt-5 md:mt-5 md:w-full lg:mt-auto'>
               {clientLogos.map((logo) => {
                 return (
-                  <Image width={60} key={logo.id} src={logo.image} alt={logo.alt} />
+                  <Image key={logo.id} src={logo.image} alt={logo.alt} className='sm:w-16' />
                 )
               })}
           </div>
         </section>
       </main>
-        <Offcanvas placement='end' show={show} onHide={handleClose}>
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title></Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <ul>
-              {navs.map((nav) => {
-                return (
-                  <li className='mb-3' key={nav.mainNavTitle}>
-                    <div className='flex items-center gap-3'>
-                      {nav.childNav ? <a onClick={() => handleClick(nav.mainNavTitle)} href='#' className=' text-medium-gray text-base no-underline'>{nav.mainNavTitle}</a> : <a className=' text-base text-medium-gray no-underline' href='#'>{nav.mainNavTitle}</a>}
-                      
-                      {nav.childNav ? <Image 
-                        className='cursor-pointer arrow-icon' role='button' 
-                        src={ navOpenState[nav.mainNavTitle] ? arrowUp : arrowDown }
-                        alt='arrow-down-icon' 
-                      /> : null}
-                    </div>
-                    <div className={`sub-nav ${navOpenState[nav.mainNavTitle] ? 'open' : ''}`}
-                    >
-                      {navOpenState[nav.mainNavTitle] && nav.childNav ? (
-                        <ul className='pt-3'>
-                          {nav.childNav.map((child) => {
-                            return (
-                              <li className='flex items-center gap-3 mb-2' key={child.title}>
-                                {child.img ? <Image src={child.img} alt='icon' /> : null}
-                                <a href='#' className='text-medium-gray no-underline'>{child.title}</a>
-                              </li>
-                            )
-                          })}
-                        </ul>
-                      ) : null}
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
-            <div className='flex flex-col text-medium-gray'>
-              <a className='text-center text-medium-gray no-underline mb-4' href='#'>Login</a>
-              <button className='border-2 border-medium-gray p-2  rounded-2xl'>Register</button>
-            </div>
-          </Offcanvas.Body>
-        </Offcanvas>
+      <Offcanvas placement='end' show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title></Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <ul>
+            {navs.map((nav) => {
+              return (
+                <li className='mb-3' key={nav.mainNavTitle}>
+                  <div className='flex items-center gap-3'>
+                    {nav.childNav ? <a onClick={() => handleClick(nav.mainNavTitle)} href='#' className=' text-medium-gray text-base no-underline'>{nav.mainNavTitle}</a> : <a className=' text-base text-medium-gray no-underline' href='#'>{nav.mainNavTitle}</a>}
+                    
+                    {nav.childNav ? <Image 
+                      className='cursor-pointer arrow-icon' role='button' 
+                      src={ navOpenState[nav.mainNavTitle] ? arrowUp : arrowDown }
+                      alt='arrow-down-icon' 
+                    /> : null}
+                  </div>
+                  <div className={`sub-nav ${navOpenState[nav.mainNavTitle] ? 'open' : ''}`}
+                  >
+                    {navOpenState[nav.mainNavTitle] && nav.childNav ? (
+                      <ul className='pt-3'>
+                        {nav.childNav.map((child) => {
+                          return (
+                            <li className='flex items-center gap-3 mb-2' key={child.title}>
+                              {child.img ? <Image src={child.img} alt='icon' /> : null}
+                              <a href='#' className='text-medium-gray no-underline'>{child.title}</a>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    ) : null}
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+          <div className='flex flex-col text-medium-gray'>
+            <a className='text-center text-medium-gray no-underline mb-4' href='#'>Login</a>
+            <button className='border-2 border-medium-gray p-2  rounded-2xl'>Register</button>
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
     </div>
   )
 }

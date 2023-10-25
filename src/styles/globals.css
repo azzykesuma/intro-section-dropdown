@@ -10,6 +10,7 @@
 }
 body {
   font-family: 'Epilogue', sans-serif;
+  /* overflow: hidden; */
 }
 .offcanvas {
   /* overriding offcanvas style */
@@ -25,4 +26,10 @@ body {
 .sub-nav.open {
   opacity: 1;
   height: 150px;
+}
+
+.nav-box {
+  box-shadow: -2px 3px 68px -9px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -2px 3px 68px -9px rgba(0,0,0,0.75);
+  -moz-box-shadow: -2px 3px 68px -9px rgba(0,0,0,0.75);
 }
