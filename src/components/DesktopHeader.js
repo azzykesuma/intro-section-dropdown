@@ -41,38 +41,40 @@ function DesktopHeader() {
         <Image className='cursor-pointer' src={logoImage} alt='logo' />
         <div className='flex gap-4'>
             <div className='flex items-center gap-5 pb-2.5'>
-            {navs.map((nav) => {
-                return (
-                    <li className='list-none relative' key={nav.mainNavTitle}>
-                        { nav.childNav ? 
-                            <a 
-                                className='flex gap-2 items-center text-base text-medium-gray no-underline hover:text-almost-black' href='#'
-                                onMouseEnter={() => {handleMouseEnter(nav.mainNavTitle)}}
-                                >{nav.mainNavTitle} 
-                                <span className='pt-1'><Image src={navOpenState[nav.mainNavTitle] ? arrowUp : arrowDown } alt='icon-arrow-down'/></span></a> 
-                            : <a onMouseEnter={() => {handleMouseEnter(nav.mainNavTitle)}} className=' text-base text-medium-gray no-underline hover:text-almost-black' href='#'>{nav.mainNavTitle}</a>
-                        }
-                        {/* sub nav container */}
-                        {navOpenState[nav.mainNavTitle] && nav.childNav ? (
-                            <div 
-                                className='absolute bg-white w-40 translate-y-4'
-                                onMouseLeave={() => {handleMouseLeave(nav.mainNavTitle)}}
-                                >
-                                <ul className='py-3 px-3 nav-box mb-0 rounded-lg'>
-                                    {nav.childNav.map((child) => {
-                                        return (
-                                            <li className='flex items-center gap-3 mb-2' key={child.title}>
-                                                {child.img ? <Image src={child.img} alt='icon' /> : null}
-                                                <a href='#' className='text-medium-gray no-underline hover:text-almost-black'>{child.title}</a>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            </div>
-                        ) : null}
-                    </li>
-                )
-            })}
+                <ul>
+                    {navs.map((nav) => {
+                        return (
+                            <li className='list-none relative' key={nav.mainNavTitle}>
+                                { nav.childNav ? 
+                                    <a 
+                                        className='flex gap-2 items-center text-base text-medium-gray no-underline hover:text-almost-black' href='#'
+                                        onMouseEnter={() => {handleMouseEnter(nav.mainNavTitle)}}
+                                        >{nav.mainNavTitle} 
+                                        <span className='pt-1'><Image src={navOpenState[nav.mainNavTitle] ? arrowUp : arrowDown } alt='icon-arrow-down'/></span></a> 
+                                    : <a onMouseEnter={() => {handleMouseEnter(nav.mainNavTitle)}} className=' text-base text-medium-gray no-underline hover:text-almost-black' href='#'>{nav.mainNavTitle}</a>
+                                }
+                                {/* sub nav container */}
+                                {navOpenState[nav.mainNavTitle] && nav.childNav ? (
+                                    <div 
+                                        className='absolute bg-white w-40 translate-y-4'
+                                        onMouseLeave={() => {handleMouseLeave(nav.mainNavTitle)}}
+                                        >
+                                        <ul className='py-3 px-3 nav-box mb-0 rounded-lg'>
+                                            {nav.childNav.map((child) => {
+                                                return (
+                                                    <li className='flex items-center gap-3 mb-2' key={child.title}>
+                                                        {child.img ? <Image src={child.img} alt='icon' /> : null}
+                                                        <a href='#' className='text-medium-gray no-underline hover:text-almost-black'>{child.title}</a>
+                                                    </li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </div>
+                                ) : null}
+                            </li>
+                        )
+                    })}
+                </ul>
             </div>
         </div>
         <a className='text-center text-medium-gray no-underline' href='#'>Login</a>
